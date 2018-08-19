@@ -1,0 +1,12 @@
+-cp src
+-main lcann.offline.Main
+-js build/Offline.js
+-dce full
+
+--next
+
+-cp toolsrc
+-main Main
+-neko build/BuildTool.n
+-cmd neko build/BuildTool.n
+-lib zip
