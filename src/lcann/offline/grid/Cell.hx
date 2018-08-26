@@ -4,8 +4,7 @@ import lcann.offline.Entity;
 /**
  * @author ekool
  */
-typedef Cell =
-{
+typedef Cell = {
 	var x:Int;
 	var y:Int;
 	var w:Int;

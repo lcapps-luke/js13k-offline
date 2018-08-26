@@ -1,13 +1,9 @@
 package lcann.offline.device;
 
 /**
- * ...
  * @author ekool
  */
-class Gateway {
-
-	public function new() {
-
-	}
-
+typedef Connection = {
+	var a:Device;
+	var b:Device;
 }

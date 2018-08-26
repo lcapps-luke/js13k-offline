@@ -3,8 +3,7 @@ package lcann.offline.resource;
 /**
  * @author ekool
  */
-typedef ImgDef =
-{
+typedef ImgDef = {
 	var name:String;
 	var data:String;
 }
