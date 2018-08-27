@@ -60,7 +60,7 @@ class Grid extends Entity {
 
 		var cx:Int = Math.floor(gx / cellWidth);
 		var cy:Int = Math.floor(gy / cellHeight);
-		
+
 		var cell:Cell = getCell(cx, cy);
 		return cell == null ? null : cell.e;
 	}
@@ -72,5 +72,9 @@ class Grid extends Entity {
 			}
 		}
 		return null;
+	}
+
+	public function iterator():Iterator<Cell> {
+		return cell.iterator();
 	}
 }

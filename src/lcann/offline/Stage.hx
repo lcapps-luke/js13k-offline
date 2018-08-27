@@ -12,7 +12,7 @@ import lcann.offline.grid.Grid;
 class Stage extends Entity {
 	private var grid:Grid;
 	private var connectionList:List<Connection>;
-	
+
 	private var connectFrom:Device = null;
 
 	public function new() {
@@ -32,8 +32,8 @@ class Stage extends Entity {
 		for (con in connectionList) {
 			updateConnection(con, s, c);
 		}
-		
-		if(connectFrom != null){
+
+		if (connectFrom != null) {
 			c.strokeStyle = "#00f";
 			c.lineWidth = 3;
 			c.beginPath();
@@ -62,37 +62,80 @@ class Stage extends Entity {
 		c.stroke();
 	}
 
+	private function checkDeviceConnections() {
+		for (e in grid) {
+			var d:Device = cast e.e;
+			d.resetConnection();
+		}
+
+		for (e in grid) {
+			var d:Device = cast e.e;
+			d.checkConnection();
+		}
+	}
+
 	public function addDevice(x:Int, y:Int, device:Device) {
 		grid.addCell(x, y, 1, 1, device);
 	}
 
-	public function addConnection(a:Device, b:Device) {
-		//TODO validate connection limits
-		
-		// skip if connection already exists
-		for(c in connectionList){
-			if((c.a == a || c.b == a) && (c.a == b || c.b == b)){
-				return;
+	public function getConnection(a:Device, b:Device) : Connection {
+		for (c in connectionList) {
+			if ((c.a == a || c.b == a) && (c.a == b || c.b == b)) {
+				return c;
 			}
 		}
-		
+		return null;
+	}
+
+	public function addConnection(a:Device, b:Device, check:Bool = true) {
+		//validate connection limits
+		if (!a.hasOpenConnections() || !b.hasOpenConnections()) {
+			return;
+		}
+
+		// skip if connection already exists
+		var existing:Connection = getConnection(a, b);
+		if (existing != null) {
+			return;
+		}
+
 		connectionList.add({
 			a: a,
 			b: b
 		});
+
+		a.connectedDevice.add(b);
+		b.connectedDevice.add(a);
+
+		if (check) {
+			checkDeviceConnections();
+		}
 	}
-	
-	private function onDown(x:Float, y:Float){
+
+	public function removeConnection(a:Device, b:Device, check:Bool = true) {
+		var existing:Connection = getConnection(a, b);
+		if (existing != null) {
+			connectionList.remove(existing);
+			a.connectedDevice.remove(b);
+			b.connectedDevice.remove(a);
+		}
+
+		if (check) {
+			checkDeviceConnections();
+		}
+	}
+
+	private function onDown(x:Float, y:Float) {
 		connectFrom = cast grid.getEntityAt(x, y);
 	}
-	
-	private function onUp(x:Float, y:Float){
+
+	private function onUp(x:Float, y:Float) {
 		var connectTo:Device = cast grid.getEntityAt(x, y);
-		
-		if(connectFrom != null && connectTo != null){
+
+		if (connectFrom != null && connectTo != null) {
 			addConnection(connectFrom, connectTo);
 		}
-		
+
 		connectFrom = null;
 	}
 }

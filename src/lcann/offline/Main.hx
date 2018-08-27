@@ -27,7 +27,7 @@ class Main {
 	public static function main() {
 		canvas = cast Browser.window.document.getElementsByTagName("canvas").item(0);
 		context = canvas.getContext2d();
-		
+
 		controls = new Controls(canvas);
 
 		new ImageLoader(r.img, function(i:Map<String, ImageElement>) {
@@ -46,23 +46,18 @@ class Main {
 		grid.y = 0;
 		grid.width = canvas.width;
 		grid.height = canvas.height;
-		/*
-		var pc:Pc = new Pc();
-		grid.addCell(3, 7, 3, 3, pc);
 
-		grid.addCell(0, 0, 1, 1, new Pc());
-		grid.addCell(8, 15, 1, 1, new Pc());
-		*/
 		stage = new Stage();
 		grid.addCell(0, 0, 9, 16, stage);
 
 		//demo stage
 		var a = new Pc();
 		var b = new Pc();
+		var c = new Pc();
 
-		stage.addDevice(3, 3, a);
-		stage.addDevice(6, 13, b);
-		//stage.addConnection(a, b);
+		stage.addDevice(4, 3, a);
+		stage.addDevice(7, 13, b);
+		stage.addDevice(2, 9, c);
 	}
 
 	private static function step(ms:Float) {
