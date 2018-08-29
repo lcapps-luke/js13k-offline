@@ -5,6 +5,7 @@ package lcann.offline.resource;
 	import sys.io.File;
 	import sys.FileSystem;
 	import haxe.macro.Context;
+	import haxe.Json;
 
 	import lcann.offline.resource.ImgDef;
 #end
@@ -27,9 +28,20 @@ class ResBuilder {
 			}
 		}
 
+		// Levels
+		var levels:Array<LvlDef> = new Array<LvlDef>();
+		var lvlPath:String = "res/level/";
+		for (f in FileSystem.readDirectory(lvlPath)) {
+			var path:Path = new Path(lvlPath + f);
+			if (path.ext == "json") {
+				levels.push(buildLevel(path));
+			}
+		}
+
 		// Construct resource type
 		var c = macro class R {
 			public var img:Array<lcann.offline.resource.ImgDef> = $v { images };
+			public var lvl:Array<lcann.offline.resource.LvlDef> = $v { levels };
 			public function new() {}
 		}
 
@@ -46,6 +58,11 @@ class ResBuilder {
 			name: path.file,
 			data: content
 		};
+	}
+
+	private static function buildLevel(path:Path):LvlDef {
+		var content:String = File.getContent(path.toString());
+		return cast Json.parse(content);
 	}
 	#end
 }

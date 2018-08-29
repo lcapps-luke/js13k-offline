@@ -9,4 +9,3 @@
 -main Main
 -neko build/BuildTool.n
 -cmd neko build/BuildTool.n
--lib zip

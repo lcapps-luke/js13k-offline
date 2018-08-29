@@ -19,9 +19,11 @@ class ImageLoader {
 		loadCount = def.length * colours.length;
 		this.callback = callback;
 
+		var colourReplaceRegex:EReg = ~/#F{3,6}/ig;
+
 		for (d in def) {
 			for (c in colours) {
-				var data = "data:image/svg+xml;base64," + Browser.window.btoa(StringTools.replace(d.data, "#FFFFFF", c.c));
+				var data = "data:image/svg+xml;base64," + Browser.window.btoa(colourReplaceRegex.replace(d.data, c.c));
 				var name = d.name + "_" + c.n;
 
 				var i:ImageElement = cast Browser.window.document.createElement("img");
@@ -32,7 +34,6 @@ class ImageLoader {
 				i.src = data;
 
 				img.set(name, i);
-
 			}
 		}
 	}

@@ -1,14 +1,13 @@
 package;
 
 import haxe.Template;
-import haxe.io.Output;
 import sys.FileSystem;
 import sys.io.File;
-import zip.ZipWriter;
 
 class Main {
 	private static inline var finalDir:String = "build/final/";
 	private static inline var finalUnDir:String = finalDir + "uncompressed/";
+	private static inline var finalMinDir:String = finalDir + "min/";
 
 	public static function main() {
 		var pageTemplate:String = File.getContent("res/index.tpl");
@@ -17,24 +16,38 @@ class Main {
 		var tpl:Template = new Template(pageTemplate);
 		var out:String = tpl.execute({src: script});
 
-		if (FileSystem.exists(finalDir)) {
-			//FileSystem.deleteDirectory(finalDir);
-		}
 		FileSystem.createDirectory(finalUnDir);
 
 		File.saveContent(finalUnDir + "index.html", out);
 		File.copy("res/manifest.webmanifest", finalUnDir + "manifest.webmanifest");
 
+		// minify
+		FileSystem.createDirectory(finalMinDir);
+		Sys.command("html-minifier", [
+						"--collaspse-boolean-attributes",
+						"--collapse-inline-tag-whitespace",
+						"--collapse-whitespace",
+						"--decode-entities",
+						"--html5",
+						"--minify-css",
+						"--minify-js",
+						"--remove-attribute-quotes",
+						"--remove-comments",
+						"--remove-empty-attributes",
+						"--remove-optional-tags",
+						"--remove-redundant-attributes",
+						"--use-short-doctype",
+						"-o", finalMinDir + "index.html",
+						finalUnDir + "index.html"]);
+
+		File.copy(finalUnDir + "manifest.webmanifest", finalMinDir + "manifest.webmanifest");
+
 		// Compress
-		var writer:ZipWriter = new ZipWriter();
-
-		for (name in FileSystem.readDirectory(finalUnDir)) {
-			writer.addBytes(File.getBytes(finalUnDir + name), name, false);
+		var finalZip:String = finalDir + "Offline.zip";
+		if (FileSystem.exists(finalZip)) {
+			FileSystem.deleteFile(finalZip);
 		}
-
-		var outFile:Output = File.write(finalDir + "Offline.zip");
-		outFile.write(writer.finalize());
-		outFile.close();
+		Sys.command("7z", ["a", finalZip, "./" + finalMinDir + "*"]);
 
 		// Report
 		var bytes:Int = FileSystem.stat(finalDir + "Offline.zip").size;

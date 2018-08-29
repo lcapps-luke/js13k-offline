@@ -77,4 +77,8 @@ class Grid extends Entity {
 	public function iterator():Iterator<Cell> {
 		return cell.iterator();
 	}
+
+	public function removeCell(x:Int, y:Int) {
+		cell.remove(getCell(x, y));
+	}
 }

@@ -1,0 +1,8 @@
+{
+	"name": "Demo Level",
+	"device": [
+		{"type": "GATEWAY", "x": 4, "y": 3},
+		{"type": "PRINTER", "x": 7, "y": 13},
+		{"type": "PC", "x": 2, "y": 9}
+	]
+}

@@ -4,11 +4,10 @@ import js.Browser;
 import js.html.CanvasElement;
 import js.html.CanvasRenderingContext2D;
 import js.html.ImageElement;
-import js.html.TextMetrics;
-import lcann.offline.device.Pc;
 import lcann.offline.grid.Grid;
 import lcann.offline.resource.ImageLoader;
 import lcann.offline.resource.ResBuilder;
+import lcann.offline.stage.StageBuilder;
 
 class Main {
 	private static var r(default, null) = ResBuilder.build();
@@ -22,7 +21,7 @@ class Main {
 	public static var controls:Controls;
 
 	private static var grid:Grid;
-	private static var stage:Stage;
+	private static var screen:Entity;
 
 	public static function main() {
 		canvas = cast Browser.window.document.getElementsByTagName("canvas").item(0);
@@ -47,17 +46,23 @@ class Main {
 		grid.width = canvas.width;
 		grid.height = canvas.height;
 
-		stage = new Stage();
-		grid.addCell(0, 0, 9, 16, stage);
+		setScreenToLevelSelect();
+	}
 
-		//demo stage
-		var a = new Pc();
-		var b = new Pc();
-		var c = new Pc();
+	public static function setScreenToLevelSelect(unlockFrom:Int = 0) {
+		setScreen(new StageList(r.lvl));
+	}
 
-		stage.addDevice(4, 3, a);
-		stage.addDevice(7, 13, b);
-		stage.addDevice(2, 9, c);
+	public static function setScreenToStage(stgIdx:Int) {
+		setScreen(StageBuilder.build(r.lvl[stgIdx]));
+	}
+
+	private static function setScreen(entity:Entity) {
+		if (screen != null) {
+			grid.removeCell(0, 0);
+		}
+		screen = entity;
+		grid.addCell(0, 0, 9, 16, screen);
 	}
 
 	private static function step(ms:Float) {
@@ -67,6 +72,7 @@ class Main {
 		context.fillStyle = "#000";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 
+		/*
 		context.strokeStyle = "#fff";
 		context.lineWidth = 1;
 
@@ -85,12 +91,15 @@ class Main {
 				context.stroke();
 			}
 		}
+		*/
 
+		/*
 		context.fillStyle = "#f00";
 		context.font = "bold 240px monospace";
 
 		var met:TextMetrics = context.measureText("Offline");
 		context.fillText("Offline", canvas.width / 2 - met.width / 2, 240);
+		*/
 
 		grid.update(delta, context);
 

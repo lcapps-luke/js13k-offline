@@ -35,6 +35,7 @@ class Device extends Entity {
 		c.strokeStyle = "#fff";
 		c.lineWidth = 3;
 
+		// connection limits
 		var cr:Float = width / 8;
 		for (i in 0...connectionLimit) {
 			var cx:Float = (cr * 2) * i + cr;
@@ -46,6 +47,21 @@ class Device extends Entity {
 			} else {
 				c.stroke();
 			}
+		}
+
+		// online status
+		if (isOnline()) {
+			c.beginPath();
+			c.ellipse(x + width - cr, y - cr, cr, cr / 2, 0, 0, Math.PI * 2);
+			c.fill();
+		} else {
+			c.beginPath();
+			c.ellipse(x + width - cr * 2, y - cr, cr / 2, cr, Math.PI * 0.5, 0, Math.PI);
+			c.fill();
+
+			c.beginPath();
+			c.ellipse(x + width - cr, y - cr, cr / 2, cr, Math.PI * 0.5, Math.PI, Math.PI * 2);
+			c.fill();
 		}
 	}
 

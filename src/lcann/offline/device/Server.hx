@@ -4,10 +4,10 @@ package lcann.offline.device;
  * ...
  * @author ekool
  */
-class Pc extends Device {
+class Server extends Device {
 
 	public function new() {
-		super("pc", 2);
+		super("server", 3);
 	}
 
 }

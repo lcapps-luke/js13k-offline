@@ -1,4 +1,4 @@
-package lcann.offline;
+package lcann.offline.stage;
 
 import js.html.CanvasRenderingContext2D;
 import lcann.offline.device.Connection;
