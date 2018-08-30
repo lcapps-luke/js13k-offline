@@ -3,6 +3,9 @@ package lcann.offline.stage;
 import js.html.CanvasRenderingContext2D;
 import lcann.offline.device.Connection;
 import lcann.offline.device.Device;
+import lcann.offline.geom.Line;
+import lcann.offline.geom.LineIntersect;
+import lcann.offline.geom.Point;
 import lcann.offline.grid.Grid;
 
 /**
@@ -14,6 +17,7 @@ class Stage extends Entity {
 	private var connectionList:List<Connection>;
 
 	private var connectFrom:Device = null;
+	private var cutFrom:Point = null;
 
 	public function new() {
 		grid = new Grid(9, 16, 10);
@@ -38,6 +42,15 @@ class Stage extends Entity {
 			c.lineWidth = 3;
 			c.beginPath();
 			c.moveTo(connectFrom.x + connectFrom.width / 2, connectFrom.y + connectFrom.height / 2);
+			c.lineTo(Main.controls.x, Main.controls.y);
+			c.stroke();
+		}
+
+		if (cutFrom != null) {
+			c.strokeStyle = "#f00";
+			c.lineWidth = 3;
+			c.beginPath();
+			c.moveTo(cutFrom.x, cutFrom.y);
 			c.lineTo(Main.controls.x, Main.controls.y);
 			c.stroke();
 		}
@@ -127,15 +140,57 @@ class Stage extends Entity {
 
 	private function onDown(x:Float, y:Float) {
 		connectFrom = cast grid.getEntityAt(x, y);
+
+		if (connectFrom == null) {
+			cutFrom = new Point(x, y);
+		}
 	}
 
 	private function onUp(x:Float, y:Float) {
-		var connectTo:Device = cast grid.getEntityAt(x, y);
+		if (connectFrom == null) {
+			if (cutFrom != null) {
+				doCut(new Line(cutFrom.x, cutFrom.y, x, y));
+			}
+		} else {
+			var connectTo:Device = cast grid.getEntityAt(x, y);
 
-		if (connectFrom != null && connectTo != null) {
-			addConnection(connectFrom, connectTo);
+			if (connectFrom != null && connectTo != null) {
+				addConnection(connectFrom, connectTo);
+			}
 		}
 
 		connectFrom = null;
+		cutFrom = null;
+	}
+
+	private function doCut(cutLine:Line) {
+		inline function cx(d:Device):Float {
+			return d.x + d.width / 2;
+		}
+
+		inline function cy(d:Device):Float {
+			return d.y +d.height / 2;
+		}
+
+		var cutConnectionList:List<Connection> = new List<Connection>();
+		var connectionLine:Line = new Line();
+
+		for (c in connectionList) {
+			connectionLine.a.set(cx(c.a), cy(c.a));
+			connectionLine.b.set(cx(c.b), cy(c.b));
+
+			var intersect:Point = LineIntersect.check(cutLine, connectionLine);
+			if (intersect != null) {
+				cutConnectionList.add(c);
+			}
+		}
+
+		for (c in cutConnectionList) {
+			removeConnection(c.a, c.b, false);
+		}
+
+		if (!cutConnectionList.isEmpty()) {
+			checkDeviceConnections();
+		}
 	}
 }
