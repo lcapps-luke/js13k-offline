@@ -18,8 +18,8 @@ class StageBuilder {
 
 	}
 
-	public static function build(def:LvlDef):Stage {
-		var s:Stage = new Stage();
+	public static function build(def:LvlDef, idx:Int):Stage {
+		var s:Stage = new Stage(idx);
 
 		for (d in def.device) {
 			var dev:Device = buildDevice(d);

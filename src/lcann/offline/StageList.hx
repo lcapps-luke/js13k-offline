@@ -13,7 +13,7 @@ class StageList extends Entity {
 	private var grid:Grid;
 	private var lvlEnt:Array<LvlEnt>;
 
-	public function new(lvlList:Array<LvlDef>) {
+	public function new(lvlList:Array<LvlDef>, unlockFrom:Int) {
 		grid = new Grid(5, 16, 10);
 		lvlEnt = new Array<LvlEnt>();
 
@@ -23,6 +23,10 @@ class StageList extends Entity {
 
 			lvlEnt.push(e);
 			grid.addCell(0, gy, 4, 1, e);
+
+			if (Main.save.isLevelComplete(gy)) {
+				grid.addCell(4, gy, 1, 1, new Annotation("check_green"));
+			}
 
 			gy++;
 		}

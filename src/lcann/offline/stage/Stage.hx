@@ -1,6 +1,7 @@
 package lcann.offline.stage;
 
 import js.html.CanvasRenderingContext2D;
+import js.html.TextMetrics;
 import lcann.offline.device.Connection;
 import lcann.offline.device.Device;
 import lcann.offline.geom.Line;
@@ -13,13 +14,19 @@ import lcann.offline.grid.Grid;
  * @author ekool
  */
 class Stage extends Entity {
+	private var index:Int;
+
 	private var grid:Grid;
 	private var connectionList:List<Connection>;
 
 	private var connectFrom:Device = null;
 	private var cutFrom:Point = null;
 
-	public function new() {
+	private var allOnline:Bool = false;
+	private var transitionTimer:Float = 1;
+
+	public function new(index:Int) {
+		this.index = index;
 		grid = new Grid(9, 16, 10);
 		connectionList = new List<Connection>();
 		Main.controls.downListener = onDown;
@@ -37,23 +44,41 @@ class Stage extends Entity {
 			updateConnection(con, s, c);
 		}
 
-		if (connectFrom != null) {
-			c.strokeStyle = "#00f";
-			c.lineWidth = 3;
-			c.beginPath();
-			c.moveTo(connectFrom.x + connectFrom.width / 2, connectFrom.y + connectFrom.height / 2);
-			c.lineTo(Main.controls.x, Main.controls.y);
-			c.stroke();
+		var stateText:String = "Offline";
+
+		if (allOnline) {
+			transitionTimer -= s;
+			if (transitionTimer <= 0) {
+				Main.setScreenToLevelSelect(index, true);
+			}
+
+			c.fillStyle = "#0f0";
+			stateText = "Online";
+		} else {
+			if (connectFrom != null) {
+				c.strokeStyle = "#00f";
+				c.lineWidth = 3;
+				c.beginPath();
+				c.moveTo(connectFrom.x + connectFrom.width / 2, connectFrom.y + connectFrom.height / 2);
+				c.lineTo(Main.controls.x, Main.controls.y);
+				c.stroke();
+			}
+
+			if (cutFrom != null) {
+				c.strokeStyle = "#f00";
+				c.lineWidth = 3;
+				c.beginPath();
+				c.moveTo(cutFrom.x, cutFrom.y);
+				c.lineTo(Main.controls.x, Main.controls.y);
+				c.stroke();
+			}
+
+			c.fillStyle = "#f00";
 		}
 
-		if (cutFrom != null) {
-			c.strokeStyle = "#f00";
-			c.lineWidth = 3;
-			c.beginPath();
-			c.moveTo(cutFrom.x, cutFrom.y);
-			c.lineTo(Main.controls.x, Main.controls.y);
-			c.stroke();
-		}
+		c.font = "bold 240px monospace";
+		var met:TextMetrics = c.measureText(stateText);
+		c.fillText(stateText, width / 2 - met.width / 2, 240);
 
 		grid.update(s, c);
 	}
@@ -81,10 +106,16 @@ class Stage extends Entity {
 			d.resetConnection();
 		}
 
+		var allOnline:Bool = true;
+
 		for (e in grid) {
 			var d:Device = cast e.e;
-			d.checkConnection();
+			if (!d.checkConnection()) {
+				allOnline = false;
+			}
 		}
+
+		this.allOnline = allOnline;
 	}
 
 	public function addDevice(x:Int, y:Int, device:Device) {
@@ -139,6 +170,10 @@ class Stage extends Entity {
 	}
 
 	private function onDown(x:Float, y:Float) {
+		if (allOnline) {
+			return;
+		}
+
 		connectFrom = cast grid.getEntityAt(x, y);
 
 		if (connectFrom == null) {

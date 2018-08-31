@@ -17,8 +17,9 @@ class Main {
 
 	private static var lastTime:Float;
 
-	public static var imageMap:Map<String, ImageElement>;
-	public static var controls:Controls;
+	public static var imageMap(default, null):Map<String, ImageElement>;
+	public static var controls(default, null):Controls;
+	public static var save(default, null):Save;
 
 	private static var grid:Grid;
 	private static var screen:Entity;
@@ -28,6 +29,7 @@ class Main {
 		context = canvas.getContext2d();
 
 		controls = new Controls(canvas);
+		save = new Save();
 
 		new ImageLoader(r.img, function(i:Map<String, ImageElement>) {
 			imageMap = i;
@@ -49,12 +51,16 @@ class Main {
 		setScreenToLevelSelect();
 	}
 
-	public static function setScreenToLevelSelect(unlockFrom:Int = 0) {
-		setScreen(new StageList(r.lvl));
+	public static function setScreenToLevelSelect(unlockFrom:Int = -1, markLevelComplete:Bool = false) {
+		if (markLevelComplete) {
+			save.setLevelComplete(unlockFrom);
+		}
+
+		setScreen(new StageList(r.lvl, unlockFrom));
 	}
 
 	public static function setScreenToStage(stgIdx:Int) {
-		setScreen(StageBuilder.build(r.lvl[stgIdx]));
+		setScreen(StageBuilder.build(r.lvl[stgIdx], stgIdx));
 	}
 
 	private static function setScreen(entity:Entity) {
@@ -66,7 +72,7 @@ class Main {
 	}
 
 	private static function step(ms:Float) {
-		var delta:Float = ms - lastTime;
+		var delta:Float = (ms - lastTime) / 1000;
 		lastTime = ms;
 
 		context.fillStyle = "#000";
