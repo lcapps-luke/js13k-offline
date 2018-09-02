@@ -4,6 +4,7 @@ import lcann.offline.device.Device;
 import lcann.offline.device.Gateway;
 import lcann.offline.device.Pc;
 import lcann.offline.device.Printer;
+import lcann.offline.device.Switch;
 import lcann.offline.resource.LvlDef;
 import lcann.offline.resource.LvlDeviceDef;
 import lcann.offline.resource.LvlDeviceType;
@@ -20,10 +21,21 @@ class StageBuilder {
 
 	public static function build(def:LvlDef, idx:Int):Stage {
 		var s:Stage = new Stage(idx);
+		var dMap:Map<String, Device> = new Map<String, Device>();
 
 		for (d in def.device) {
 			var dev:Device = buildDevice(d);
 			s.addDevice(d.x, d.y, dev);
+
+			if (d.id != null) {
+				dMap.set(d.id, dev);
+			}
+		}
+
+		if (def.connection != null) {
+			for (c in def.connection) {
+				s.addConnection(dMap.get(c.a), dMap.get(c.b));
+			}
 		}
 
 		return s;
@@ -37,6 +49,8 @@ class StageBuilder {
 				new Pc();
 			case LvlDeviceType.PRINTER:
 				new Printer();
+			case LvlDeviceType.SWITCH:
+				new Switch();
 			default:
 				throw "Unknown device type: " + def.type;
 		}

@@ -14,7 +14,9 @@ class StageList extends Entity {
 	private var lvlEnt:Array<LvlEnt>;
 
 	public function new(lvlList:Array<LvlDef>, unlockFrom:Int) {
-		grid = new Grid(5, 16, 10);
+		grid = new Grid(5, 16, 20);
+		grid.y = 250;
+
 		lvlEnt = new Array<LvlEnt>();
 
 		var gy:Int = 0;
@@ -52,9 +54,8 @@ class StageList extends Entity {
 		var met:TextMetrics = c.measureText("Offline");
 		c.fillText("Offline", width / 2 - met.width / 2, 240);
 
-		grid.y = 240;
 		grid.width = width;
-		grid.height = height - 240;
+		grid.height = height - grid.y;
 		grid.update(s, c);
 	}
 }

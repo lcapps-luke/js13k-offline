@@ -1,0 +1,7 @@
+{
+	"name": "Tutorial 1",
+	"device": [
+		{"type": "GATEWAY", "x": 4, "y": 4},
+		{"type": "PC", "x": 4, "y": 12}
+	]
+}

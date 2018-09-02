@@ -1,0 +1,14 @@
+{
+	"name": "Simple 2",
+	"device": [
+		{"type": "GATEWAY", "x": 4, "y": 2},
+		
+		{"type": "PC", "x": 1, "y": 5},
+		{"type": "PC", "x": 7, "y": 5},
+		
+		{"type": "SWITCH", "x": 4, "y": 9},
+		
+		{"type": "PRINTER", "x": 1, "y": 13},
+		{"type": "PRINTER", "x": 7, "y": 13}
+	]
+}

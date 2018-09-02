@@ -21,8 +21,22 @@ class ResBuilder {
 		// Images
 		var images:Array<ImgDef> = new Array<ImgDef>();
 		var imagePath:String = "res/svg/";
-		for (f in FileSystem.readDirectory(imagePath)) {
-			var path:Path = new Path(imagePath + f);
+		var imagePathMin:String = "build/svgmin/";
+		FileSystem.createDirectory(imagePathMin);
+
+		Sys.command("svgo", [
+						"-f", imagePath,
+						"-o", imagePathMin,
+						"-p", "0",
+						"--enable", "removeTitle",
+						"--enable", "removeDesc",
+						"--enable", "removeUselessDefs",
+						"--enable", "removeEditorsNSData",
+						"--enable", "removeViewBox",
+						"--enable", "transformsWithOnePath"]);
+
+		for (f in FileSystem.readDirectory(imagePathMin)) {
+			var path:Path = new Path(imagePathMin + f);
 			if (path.ext == "svg") {
 				images.push(buildImage(path));
 			}

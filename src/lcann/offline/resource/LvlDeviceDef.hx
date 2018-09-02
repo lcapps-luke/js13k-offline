@@ -7,4 +7,5 @@ typedef LvlDeviceDef = {
 	var type:String;
 	var x:Int;
 	var y:Int;
+	@:optional var id:String;
 }

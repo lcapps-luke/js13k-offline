@@ -10,19 +10,23 @@ class Main {
 	private static inline var finalMinDir:String = finalDir + "min/";
 
 	public static function main() {
-		var pageTemplate:String = File.getContent("res/index.tpl");
-		var script:String = File.getContent("build/Offline.js");
+		var pageTemplate:Template = new Template(File.getContent("res/index.tpl"));
+		var pageOut:String = pageTemplate.execute({src: File.getContent("build/Offline.js")});
 
-		var tpl:Template = new Template(pageTemplate);
-		var out:String = tpl.execute({src: script});
+		var workerTemplate:Template = new Template(File.getContent("res/worker.js"));
+		var worker:String = workerTemplate.execute({date: DateTools.format(Date.now(), "%Y%m%d%H%M%S")});
 
 		FileSystem.createDirectory(finalUnDir);
 
-		File.saveContent(finalUnDir + "index.html", out);
+		File.saveContent(finalUnDir + "index.html", pageOut);
 		File.copy("res/manifest.webmanifest", finalUnDir + "manifest.webmanifest");
+		File.saveContent(finalUnDir + "worker.js", worker);
+		File.copy("res/icon.svg", finalUnDir + "icon.svg");
+		File.copy("res/icon-192.png", finalUnDir + "icon-192.png");
 
 		// minify
 		FileSystem.createDirectory(finalMinDir);
+
 		Sys.command("html-minifier", [
 						"--collaspse-boolean-attributes",
 						"--collapse-inline-tag-whitespace",
@@ -41,6 +45,24 @@ class Main {
 						finalUnDir + "index.html"]);
 
 		File.copy(finalUnDir + "manifest.webmanifest", finalMinDir + "manifest.webmanifest");
+
+		Sys.command("uglifyjs", [
+						"-c",
+						"-o", finalMinDir + "worker.js",
+						finalUnDir + "worker.js"]);
+
+		Sys.command("svgo", [
+						"-i", finalUnDir + "icon.svg",
+						"-o", finalMinDir + "icon.svg",
+						"-p", "0",
+						"--enable", "removeTitle",
+						"--enable", "removeDesc",
+						"--enable", "removeUselessDefs",
+						"--enable", "removeEditorsNSData",
+						"--enable", "removeViewBox",
+						"--enable", "transformsWithOnePath"]);
+
+		File.copy(finalUnDir + "icon-192.png", finalMinDir + "icon-192.png");
 
 		// Compress
 		var finalZip:String = finalDir + "Offline.zip";
