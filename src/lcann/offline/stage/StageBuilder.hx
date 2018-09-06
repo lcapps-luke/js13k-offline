@@ -1,6 +1,7 @@
 package lcann.offline.stage;
 
 import lcann.offline.device.Device;
+import lcann.offline.device.Firewall;
 import lcann.offline.device.Gateway;
 import lcann.offline.device.Pc;
 import lcann.offline.device.Printer;
@@ -44,13 +45,15 @@ class StageBuilder {
 	private static inline function buildDevice(def:LvlDeviceDef):Device {
 		return switch (def.type) {
 			case LvlDeviceType.GATEWAY:
-				new Gateway();
+				new Gateway(def.subnet);
 			case LvlDeviceType.PC:
-				new Pc();
+				new Pc(def.subnet);
 			case LvlDeviceType.PRINTER:
-				new Printer();
+				new Printer(def.subnet);
 			case LvlDeviceType.SWITCH:
-				new Switch();
+				new Switch(def.subnet);
+			case LvlDeviceType.FIREWALL:
+				new Firewall();
 			default:
 				throw "Unknown device type: " + def.type;
 		}

@@ -9,6 +9,8 @@ import js.html.ImageElement;
  */
 class Device extends Entity {
 	public var connectionLimit(default, null):Int;
+	public var subnet(default, null):String;
+
 	private var imageOffline:ImageElement;
 	private var imageOnline:ImageElement;
 
@@ -16,9 +18,12 @@ class Device extends Entity {
 
 	private var online:Bool = false;
 	private var connectionChecked:Bool = false;
+	private var connectionChecking:Bool = false;
 
-	public function new(imgName:String, limit:Int = 1) {
+	public function new(imgName:String, limit:Int = 1, subnet:String = null) {
 		connectionLimit = limit;
+		this.subnet = subnet;
+
 		connectedDevice = new List<Device>();
 
 		this.imageOffline = Main.imageMap.get(imgName + "_red");
@@ -63,6 +68,12 @@ class Device extends Entity {
 			c.ellipse(x + width - cr, y - cr, cr / 2, cr, Math.PI * 0.5, Math.PI, Math.PI * 2);
 			c.fill();
 		}
+
+		// subnet
+		if (subnet != null) {
+			c.font = "bold 94px monospace";
+			c.fillText(subnet, x, y);
+		}
 	}
 
 	public function isOnline():Bool {
@@ -75,13 +86,29 @@ class Device extends Entity {
 	}
 
 	public function checkConnection():Bool {
+		if (connectionChecking) {
+			return null;
+		}
+
 		if (!connectionChecked) {
-			connectionChecked = true;
+			connectionChecking = true;
+
+			var allChecked:Bool = true;
 			for (c in connectedDevice) {
-				if (c.checkConnection()) {
+				var otherConnected:Bool = c.checkConnection();
+
+				if (otherConnected == null) {
+					allChecked = false;
+					continue;
+				}
+
+				if (otherConnected) {
 					online = true;
 				}
 			}
+
+			connectionChecking = false;
+			connectionChecked = allChecked;
 		}
 
 		return isOnline();
@@ -89,5 +116,9 @@ class Device extends Entity {
 
 	public function hasOpenConnections():Bool {
 		return connectionLimit > connectedDevice.length;
+	}
+
+	public function checkSubnet(other:Device, checkOther:Bool = true):Bool {
+		return subnet == other.subnet || (checkOther && other.checkSubnet(this, false));
 	}
 }

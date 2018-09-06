@@ -6,8 +6,8 @@ package lcann.offline.device;
  */
 class Gateway extends Device {
 
-	public function new() {
-		super("gateway");
+	public function new(subnet:String) {
+		super("gateway", 1, subnet);
 	}
 
 	override public function isOnline():Bool {

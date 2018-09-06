@@ -78,35 +78,6 @@ class Main {
 		context.fillStyle = "#000";
 		context.fillRect(0, 0, canvas.width, canvas.height);
 
-		/*
-		context.strokeStyle = "#fff";
-		context.lineWidth = 1;
-
-		for (x in 0...9) {
-			var xx = canvas.width / 9 * x;
-			context.beginPath();
-			context.moveTo(xx, 0);
-			context.lineTo(xx, canvas.height);
-			context.stroke();
-
-			for (y in 0...16) {
-				var yy = canvas.height / 16 * y;
-				context.beginPath();
-				context.moveTo(0, yy);
-				context.lineTo(canvas.width, yy);
-				context.stroke();
-			}
-		}
-		*/
-
-		/*
-		context.fillStyle = "#f00";
-		context.font = "bold 240px monospace";
-
-		var met:TextMetrics = context.measureText("Offline");
-		context.fillText("Offline", canvas.width / 2 - met.width / 2, 240);
-		*/
-
 		grid.update(delta, context);
 
 		Browser.window.requestAnimationFrame(step);

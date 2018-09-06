@@ -6,8 +6,8 @@ package lcann.offline.device;
  */
 class Printer extends Device {
 
-	public function new() {
-		super("printer", 1);
+	public function new(subnet:String) {
+		super("printer", 1, subnet);
 	}
 
 }

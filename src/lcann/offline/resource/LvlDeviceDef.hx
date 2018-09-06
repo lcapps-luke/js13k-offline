@@ -8,4 +8,5 @@ typedef LvlDeviceDef = {
 	var x:Int;
 	var y:Int;
 	@:optional var id:String;
+	@:optional var subnet:String;
 }

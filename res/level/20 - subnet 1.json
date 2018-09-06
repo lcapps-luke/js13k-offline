@@ -1,0 +1,10 @@
+{
+	"name": "Subnets 1",
+	"device": [
+		{"type": "GATEWAY", "x": 4, "y": 3},
+		{"type": "FIREWALL", "x": 4, "y": 13},
+		
+		{"type": "PC", "x": 2, "y": 8, "subnet": "A"},
+		{"type": "PC", "x": 6, "y": 8, "subnet": "B"}
+	]
+}

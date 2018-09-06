@@ -6,8 +6,8 @@ package lcann.offline.device;
  */
 class Switch extends Device {
 
-	public function new() {
-		super("switch", 4);
+	public function new(subnet:String) {
+		super("switch", 4, subnet);
 	}
 
 }

@@ -8,4 +8,5 @@ class LvlDeviceType {
 	public static inline var PC = "PC";
 	public static inline var PRINTER = "PRINTER";
 	public static inline var SWITCH = "SWITCH";
+	public static inline var FIREWALL = "FIREWALL";
 }

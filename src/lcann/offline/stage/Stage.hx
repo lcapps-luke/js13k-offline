@@ -132,8 +132,18 @@ class Stage extends Entity {
 	}
 
 	public function addConnection(a:Device, b:Device, check:Bool = true) {
-		//validate connection limits
+		// no self-connections (eww)
+		if (a == b) {
+			return;
+		}
+
+		// validate connection limits
 		if (!a.hasOpenConnections() || !b.hasOpenConnections()) {
+			return;
+		}
+
+		// validate subnet
+		if (!a.checkSubnet(b)) {
 			return;
 		}
 
