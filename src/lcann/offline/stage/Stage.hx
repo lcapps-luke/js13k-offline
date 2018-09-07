@@ -14,6 +14,8 @@ import lcann.offline.grid.Grid;
  * @author ekool
  */
 class Stage extends Entity {
+	private static inline var backRegion:Float = 240;
+
 	private var index:Int;
 
 	private var grid:Grid;
@@ -24,6 +26,8 @@ class Stage extends Entity {
 
 	private var allOnline:Bool = false;
 	private var transitionTimer:Float = 1;
+
+	private var downOnBack:Bool = false;
 
 	public function new(index:Int) {
 		this.index = index;
@@ -187,11 +191,19 @@ class Stage extends Entity {
 		connectFrom = cast grid.getEntityAt(x, y);
 
 		if (connectFrom == null) {
+			if (x < backRegion && y < backRegion) {
+				downOnBack = true;
+			}
+
 			cutFrom = new Point(x, y);
 		}
 	}
 
 	private function onUp(x:Float, y:Float) {
+		if (downOnBack && x < backRegion && y < backRegion) {
+			Main.setScreenToLevelSelect();
+		}
+
 		if (connectFrom == null) {
 			if (cutFrom != null) {
 				doCut(new Line(cutFrom.x, cutFrom.y, x, y));
@@ -206,6 +218,7 @@ class Stage extends Entity {
 
 		connectFrom = null;
 		cutFrom = null;
+		downOnBack = true;
 	}
 
 	private function doCut(cutLine:Line) {
