@@ -5,6 +5,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg8"
@@ -12,7 +13,7 @@
    viewBox="0 0 63.5 63.500002"
    height="240"
    width="240"
-   sodipodi:docname="switch.svg"
+   sodipodi:docname="back.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <sodipodi:namedview
      pagecolor="#000000"
@@ -28,14 +29,36 @@
      id="namedview10"
      showgrid="false"
      inkscape:zoom="1.9666667"
-     inkscape:cx="211.08944"
-     inkscape:cy="16.053462"
+     inkscape:cx="-101.27031"
+     inkscape:cy="-45.495739"
      inkscape:window-x="-13"
      inkscape:window-y="-13"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg8" />
   <defs
-     id="defs2" />
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient833">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop829" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop831" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient833"
+       id="linearGradient835"
+       x1="58.138355"
+       y1="21.675833"
+       x2="56.616276"
+       y2="2.8071673"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -49,8 +72,9 @@
     </rdf:RDF>
   </metadata>
   <path
-     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.93340433;stroke-opacity:1"
-     d="M 15.466797 15.466797 L 15.466797 224.5332 L 224.5332 224.5332 L 224.5332 15.466797 L 15.466797 15.466797 z M 45.494141 41.505859 L 85.494141 41.505859 L 85.494141 56.505859 L 100.49414 56.505859 L 100.49414 89.505859 L 30.494141 89.505859 L 30.494141 56.505859 L 45.494141 56.505859 L 45.494141 41.505859 z M 155.49414 41.505859 L 195.49414 41.505859 L 195.49414 56.505859 L 210.49414 56.505859 L 210.49414 89.505859 L 140.49414 89.505859 L 140.49414 56.505859 L 155.49414 56.505859 L 155.49414 41.505859 z M 45.494141 151.50586 L 85.494141 151.50586 L 85.494141 166.50586 L 100.49414 166.50586 L 100.49414 199.50586 L 30.494141 199.50586 L 30.494141 166.50586 L 45.494141 166.50586 L 45.494141 151.50586 z M 155.49414 151.50586 L 195.49414 151.50586 L 195.49414 166.50586 L 210.49414 166.50586 L 210.49414 199.50586 L 140.49414 199.50586 L 140.49414 166.50586 L 155.49414 166.50586 L 155.49414 151.50586 z "
-     transform="scale(0.26458334)"
-     id="rect864" />
+     style="fill:url(#linearGradient835);stroke:none;stroke-width:0.26458335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="M 0,50.270834 20.165004,37.041667 v 7.9375 C 48.673093,45.873365 52.966317,20.601681 52.916667,0 h 10.583334 c 0,20.231512 -5.087027,55.562501 -43.334997,55.562501 v 7.9375 z"
+     id="path817"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cccccccc" />
 </svg>

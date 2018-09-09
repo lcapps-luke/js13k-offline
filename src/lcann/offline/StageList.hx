@@ -41,6 +41,7 @@ class StageList extends Entity {
 		if (touchEntity != null) {
 			var id:Int = lvlEnt.indexOf(touchEntity);
 
+			Main.sound.play("select");
 			Main.setScreenToStage(id);
 		}
 	}

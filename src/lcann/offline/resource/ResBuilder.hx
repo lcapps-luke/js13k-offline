@@ -6,8 +6,6 @@ package lcann.offline.resource;
 	import sys.FileSystem;
 	import haxe.macro.Context;
 	import haxe.Json;
-
-	import lcann.offline.resource.ImgDef;
 #end
 
 /**
@@ -52,10 +50,21 @@ class ResBuilder {
 			}
 		}
 
+		// Sounds
+		var sounds:Array<SoundDef> = new Array<SoundDef>();
+		var soundPath:String = "res/sound/";
+		for (f in FileSystem.readDirectory(soundPath)) {
+			var path:Path = new Path(soundPath + f);
+			if (path.ext == "txt") {
+				sounds.push(buildSound(path));
+			}
+		}
+
 		// Construct resource type
 		var c = macro class R {
 			public var img:Array<lcann.offline.resource.ImgDef> = $v { images };
 			public var lvl:Array<lcann.offline.resource.LvlDef> = $v { levels };
+			public var snd:Array<lcann.offline.resource.SoundDef> = $v { sounds };
 			public function new() {}
 		}
 
@@ -77,6 +86,21 @@ class ResBuilder {
 	private static function buildLevel(path:Path):LvlDef {
 		var content:String = File.getContent(path.toString());
 		return cast Json.parse(content);
+	}
+
+	private static function buildSound(path:Path):SoundDef {
+		var txt = File.getContent(path.toString());
+
+		var arr:Array<Float> = new Array<Float>();
+
+		for (t in txt.split(",")) {
+			arr.push(t.length > 0 ? Std.parseFloat(t) : 0);
+		}
+
+		return {
+			n: path.file,
+			d: arr
+		}
 	}
 	#end
 }

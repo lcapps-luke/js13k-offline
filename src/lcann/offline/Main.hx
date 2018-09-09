@@ -7,6 +7,7 @@ import js.html.ImageElement;
 import lcann.offline.grid.Grid;
 import lcann.offline.resource.ImageLoader;
 import lcann.offline.resource.ResBuilder;
+import lcann.offline.resource.SoundManager;
 import lcann.offline.stage.StageBuilder;
 
 class Main {
@@ -24,6 +25,8 @@ class Main {
 	private static var grid:Grid;
 	private static var screen:Entity;
 
+	public static var sound(default, null):SoundManager;
+
 	public static function main() {
 		canvas = cast Browser.window.document.getElementsByTagName("canvas").item(0);
 		context = canvas.getContext2d();
@@ -39,6 +42,8 @@ class Main {
 			lastTime = Browser.window.performance.now();
 			step(lastTime);
 		});
+
+		sound = new SoundManager(r.snd);
 	}
 
 	private static function init() {

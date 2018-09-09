@@ -2,6 +2,7 @@ package lcann.offline.stage;
 
 import js.html.CanvasRenderingContext2D;
 import js.html.TextMetrics;
+import lcann.offline.Annotation;
 import lcann.offline.device.Connection;
 import lcann.offline.device.Device;
 import lcann.offline.geom.Line;
@@ -27,6 +28,7 @@ class Stage extends Entity {
 	private var allOnline:Bool = false;
 	private var transitionTimer:Float = 1;
 
+	private var backIcon:Annotation;
 	private var downOnBack:Bool = false;
 
 	public function new(index:Int) {
@@ -35,6 +37,9 @@ class Stage extends Entity {
 		connectionList = new List<Connection>();
 		Main.controls.downListener = onDown;
 		Main.controls.upListener = onUp;
+		backIcon = new Annotation("back_green");
+		backIcon.width = backRegion;
+		backIcon.height = backRegion;
 	}
 
 	override public function update(s:Float, c:CanvasRenderingContext2D) {
@@ -85,6 +90,7 @@ class Stage extends Entity {
 		c.fillText(stateText, width / 2 - met.width / 2, 240);
 
 		grid.update(s, c);
+		backIcon.update(s, c);
 	}
 
 	private function updateConnection(connection:Connection, s:Float, c:CanvasRenderingContext2D) {
@@ -120,6 +126,9 @@ class Stage extends Entity {
 		}
 
 		this.allOnline = allOnline;
+		if (allOnline) {
+			Main.sound.play("online");
+		}
 	}
 
 	public function addDevice(x:Int, y:Int, device:Device) {
@@ -135,26 +144,26 @@ class Stage extends Entity {
 		return null;
 	}
 
-	public function addConnection(a:Device, b:Device, check:Bool = true) {
+	public function addConnection(a:Device, b:Device, check:Bool = true):Bool {
 		// no self-connections (eww)
 		if (a == b) {
-			return;
+			return false;
 		}
 
 		// validate connection limits
 		if (!a.hasOpenConnections() || !b.hasOpenConnections()) {
-			return;
+			return false;
 		}
 
 		// validate subnet
 		if (!a.checkSubnet(b)) {
-			return;
+			return false;
 		}
 
 		// skip if connection already exists
 		var existing:Connection = getConnection(a, b);
 		if (existing != null) {
-			return;
+			return false;
 		}
 
 		connectionList.add({
@@ -168,6 +177,8 @@ class Stage extends Entity {
 		if (check) {
 			checkDeviceConnections();
 		}
+
+		return true;
 	}
 
 	public function removeConnection(a:Device, b:Device, check:Bool = true) {
@@ -202,17 +213,24 @@ class Stage extends Entity {
 	private function onUp(x:Float, y:Float) {
 		if (downOnBack && x < backRegion && y < backRegion) {
 			Main.setScreenToLevelSelect();
+			Main.sound.play("select");
+			return;
 		}
 
 		if (connectFrom == null) {
 			if (cutFrom != null) {
 				doCut(new Line(cutFrom.x, cutFrom.y, x, y));
+				Main.sound.play("cut");
 			}
 		} else {
 			var connectTo:Device = cast grid.getEntityAt(x, y);
 
 			if (connectFrom != null && connectTo != null) {
-				addConnection(connectFrom, connectTo);
+				if (addConnection(connectFrom, connectTo)) {
+					Main.sound.play("connect");
+				} else {
+					Main.sound.play("noconnect");
+				}
 			}
 		}
 
