@@ -22,7 +22,7 @@
 		}
 	</style>
 </head>
-<body lang="en-US">
+<body>
 	<canvas width="2160" height="3840"></canvas>
 	<script>
 		if ('serviceWorker' in navigator) {
@@ -30,6 +30,6 @@
 		}
 	</script>
 	<script>::src::</script>
-	<noscript>Javascript must be enebled to run this game</noscript>
+	<noscript>Javascript must be enabled to run this game</noscript>
 </body>
 </html>

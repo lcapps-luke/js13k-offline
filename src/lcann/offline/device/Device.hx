@@ -70,9 +70,10 @@ class Device extends Entity {
 		}
 
 		// subnet
-		if (subnet != null) {
+		var sn:String = getSubnetName();
+		if (sn != null) {
 			c.font = "bold 94px monospace";
-			c.fillText(subnet, x, y);
+			c.fillText(sn, x, y);
 		}
 	}
 
@@ -118,7 +119,15 @@ class Device extends Entity {
 		return connectionLimit > connectedDevice.length;
 	}
 
+	private function getEffectiveSubnet():String {
+		return subnet == null ? "" : subnet;
+	}
+
 	public function checkSubnet(other:Device, checkOther:Bool = true):Bool {
-		return subnet == other.subnet || (checkOther && other.checkSubnet(this, false));
+		return getEffectiveSubnet() == other.getEffectiveSubnet() || (checkOther && other.checkSubnet(this, false));
+	}
+
+	private function getSubnetName():String {
+		return getEffectiveSubnet();
 	}
 }
