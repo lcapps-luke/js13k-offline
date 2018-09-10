@@ -1,11 +1,12 @@
 {
 	"name": "Tutorial 3",
 	"device": [
-		{"type": "GATEWAY", "x": 4, "y": 3, "id": "1"},
-		{"type": "PRINTER", "x": 7, "y": 13, "id": "2"},
+		{"type": "GW", "x": 4, "y": 3, "id": "1"},
+		{"type": "PR", "x": 7, "y": 13, "id": "2"},
 		{"type": "PC", "x": 2, "y": 9}
 	],
 	"connection": [
 		{"a": "1", "b": "2"}
-	]
+	],
+	"help": {"fx": 7, "fy": 5, "tx": 4, "ty": 11}
 }

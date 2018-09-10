@@ -1,12 +1,12 @@
 {
 	"name": "Subnets 2",
 	"device": [
-		{"type": "GATEWAY", "x": 4, "y": 3},
+		{"type": "GW", "x": 4, "y": 3},
 		
-		{"type": "SWITCH", "x": 2, "y": 10},
-		{"type": "SWITCH", "x": 6, "y": 10},
+		{"type": "SW", "x": 2, "y": 10},
+		{"type": "SW", "x": 6, "y": 10},
 		
-		{"type": "FIREWALL", "x": 4, "y": 7},
+		{"type": "FW", "x": 4, "y": 7},
 		
 		{"type": "PC", "x": 1, "y": 14, "subnet": "A"},
 		{"type": "PC", "x": 3, "y": 14, "subnet": "B"},

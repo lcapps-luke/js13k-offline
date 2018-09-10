@@ -3,6 +3,7 @@ package lcann.offline.stage;
 import js.html.CanvasRenderingContext2D;
 import js.html.TextMetrics;
 import lcann.offline.Annotation;
+import lcann.offline.Entity;
 import lcann.offline.device.Connection;
 import lcann.offline.device.Device;
 import lcann.offline.geom.Line;
@@ -21,6 +22,7 @@ class Stage extends Entity {
 
 	private var grid:Grid;
 	private var connectionList:List<Connection>;
+	private var deviceList:List<Device>;
 
 	private var connectFrom:Device = null;
 	private var cutFrom:Point = null;
@@ -35,6 +37,8 @@ class Stage extends Entity {
 		this.index = index;
 		grid = new Grid(9, 16, 10);
 		connectionList = new List<Connection>();
+		deviceList = new List<Device>();
+
 		Main.controls.downListener = onDown;
 		Main.controls.upListener = onUp;
 		backIcon = new Annotation("back_green");
@@ -111,15 +115,13 @@ class Stage extends Entity {
 	}
 
 	private function checkDeviceConnections() {
-		for (e in grid) {
-			var d:Device = cast e.e;
+		for (d in deviceList) {
 			d.resetConnection();
 		}
 
 		var allOnline:Bool = true;
 
-		for (e in grid) {
-			var d:Device = cast e.e;
+		for (d in deviceList) {
 			if (!d.checkConnection()) {
 				allOnline = false;
 			}
@@ -133,6 +135,7 @@ class Stage extends Entity {
 
 	public function addDevice(x:Int, y:Int, device:Device) {
 		grid.addCell(x, y, 1, 1, device);
+		deviceList.add(device);
 	}
 
 	public function getConnection(a:Device, b:Device) : Connection {
@@ -194,12 +197,17 @@ class Stage extends Entity {
 		}
 	}
 
+	public function addHelp(fromX:Int, fromY:Int, toX:Int, toY:Int) {
+		grid.addCell(fromX, fromY, 2, 2, new HelpGuide(grid, toX, toY));
+	}
+
 	private function onDown(x:Float, y:Float) {
 		if (allOnline) {
 			return;
 		}
 
-		connectFrom = cast grid.getEntityAt(x, y);
+		var ent:Entity = grid.getEntityAt(x, y);
+		connectFrom = ent != null && Std.is(ent, Device) ? cast ent : null;
 
 		if (connectFrom == null) {
 			if (x < backRegion && y < backRegion) {
@@ -223,7 +231,8 @@ class Stage extends Entity {
 				Main.sound.play("cut");
 			}
 		} else {
-			var connectTo:Device = cast grid.getEntityAt(x, y);
+			var ent:Entity = grid.getEntityAt(x, y);
+			var connectTo:Device = ent != null && Std.is(ent, Device) ? cast ent : null;
 
 			if (connectFrom != null && connectTo != null) {
 				if (addConnection(connectFrom, connectTo)) {

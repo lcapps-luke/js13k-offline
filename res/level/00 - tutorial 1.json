@@ -1,7 +1,8 @@
 {
 	"name": "Tutorial 1",
 	"device": [
-		{"type": "GATEWAY", "x": 4, "y": 4},
+		{"type": "GW", "x": 4, "y": 4},
 		{"type": "PC", "x": 4, "y": 12}
-	]
+	],
+	"help": {"fx": 5, "fy": 4, "tx": 5, "ty": 12}
 }

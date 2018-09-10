@@ -1,7 +1,7 @@
 {
 	"name": "Simple 1",
 	"device": [
-		{"type": "GATEWAY", "x": 4, "y": 2},
+		{"type": "GW", "x": 4, "y": 2},
 		
 		{"type": "PC", "x": 1, "y": 5},
 		{"type": "PC", "x": 7, "y": 5},
@@ -13,6 +13,6 @@
 		{"type": "PC", "x": 7, "y": 11},
 		
 		
-		{"type": "PRINTER", "x": 4, "y": 14}
+		{"type": "PR", "x": 4, "y": 14}
 	]
 }

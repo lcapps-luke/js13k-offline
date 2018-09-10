@@ -4,9 +4,9 @@ package lcann.offline.resource;
  * @author ekool
  */
 class LvlDeviceType {
-	public static inline var GATEWAY = "GATEWAY";
+	public static inline var GATEWAY = "GW";
 	public static inline var PC = "PC";
-	public static inline var PRINTER = "PRINTER";
-	public static inline var SWITCH = "SWITCH";
-	public static inline var FIREWALL = "FIREWALL";
+	public static inline var PRINTER = "PR";
+	public static inline var SWITCH = "SW";
+	public static inline var FIREWALL = "FW";
 }

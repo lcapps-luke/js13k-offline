@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 127 127"
+   height="480"
+   width="480"
+   sodipodi:docname="touch.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <sodipodi:namedview
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1916"
+     inkscape:window-height="2020"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="0.49166667"
+     inkscape:cx="699.88661"
+     inkscape:cy="-643.0938"
+     inkscape:window-x="1909"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8" />
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     style="fill:#808080;stroke:#000000;stroke-width:0.5392226px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 93.037515,103.30049 -6.991617,-7.265797 c -4.183141,-4.18314 -8.58226,0.17892 -23.386868,-4.62092 l -13.850173,-0.21336 c -8.572147,2.2969 -11.481306,-11.835 -3.975624,-13.84614 l 16.810559,-1.06061 -37.306426,-38.95151 c -6.221822,-6.22182 4.51188,-17.696781 10.967241,-11.24142 l 19.108327,19.10833 c 2.231402,-5.02241 27.037999,-23.607542 32.17729,-18.468249 l 19.157726,19.157729 c 6.09129,6.0913 0.0234,19.21607 5.48362,24.67629 l 7.53998,7.53997 z"
+     id="path817"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cccccccccccccc" />
+  <circle
+     style="fill:none;fill-opacity:1;stroke:#808080;stroke-width:6.10314035;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path819"
+     cx="-1.25254"
+     cy="44.841938"
+     r="21.687777"
+     transform="rotate(-45)" />
+</svg>

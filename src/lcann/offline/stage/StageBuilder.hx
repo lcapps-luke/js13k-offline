@@ -39,6 +39,10 @@ class StageBuilder {
 			}
 		}
 
+		if (def.help != null) {
+			s.addHelp(def.help.fx, def.help.fy, def.help.tx, def.help.ty);
+		}
+
 		return s;
 	}
 

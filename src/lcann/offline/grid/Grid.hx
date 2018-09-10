@@ -74,11 +74,15 @@ class Grid extends Entity {
 		return null;
 	}
 
-	public function iterator():Iterator<Cell> {
-		return cell.iterator();
-	}
-
 	public function removeCell(x:Int, y:Int) {
 		cell.remove(getCell(x, y));
+	}
+
+	public function getCenterX(x:Int) {
+		return (width / hCell) * (x + 0.5);
+	}
+
+	public function getCenterY(y:Int) {
+		return (height / vCell) * (y + 0.5);
 	}
 }
