@@ -1,0 +1,8 @@
+Name / nick:						Luke Cann
+Twitter username:					cannl
+Your website:						http://www.lc-apps.co.uk/
+Link to the GitHub repository:		https://github.com/lcapps-luke/js13k-offline
+Title of the game:					Offline
+Short game description:
+'Offline' is a network puzzle game where you must bring all of the devices in a network back online.
+You do this by connecting each device the 'Gateway' node either directly or through other devices.
