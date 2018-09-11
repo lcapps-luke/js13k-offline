@@ -1,5 +1,5 @@
 var cacheName = "lcann-js13k-2018-offline-::date::"
-var filesToCache = ["./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png"];
+var filesToCache = ["index.html", "manifest.webmanifest", "icon.svg", "icon-192.png"];
 
 self.addEventListener('install', function(e) {
 	e.waitUntil(
