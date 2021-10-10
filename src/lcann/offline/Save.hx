@@ -5,9 +5,10 @@ import js.html.Storage;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Save {
+	private static inline var PREFIX = "uk.co.lc-apps.offline.";
 	private var storage:Storage;
 	private var failoverMap:Map<String, String> = new Map<String, String>();
 
@@ -16,14 +17,14 @@ class Save {
 	}
 
 	private function getValue(key:String):String {
-		return storage == null ? failoverMap.get(key) : storage.getItem(key);
+		return storage == null ? failoverMap.get(key) : storage.getItem(PREFIX + key);
 	}
 
 	private function setValue(key:String, value:String) {
 		if (storage == null) {
 			failoverMap.set(key, value);
 		} else {
-			storage.setItem(key, value);
+			storage.setItem(PREFIX + key, value);
 		}
 	}
 

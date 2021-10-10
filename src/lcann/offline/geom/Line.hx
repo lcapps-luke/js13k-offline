@@ -2,7 +2,7 @@ package lcann.offline.geom;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Line {
 	public var a:Point;

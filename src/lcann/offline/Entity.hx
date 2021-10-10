@@ -4,7 +4,7 @@ import js.html.CanvasRenderingContext2D;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Entity {
 	public var x:Float = 0;

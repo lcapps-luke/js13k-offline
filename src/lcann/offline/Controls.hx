@@ -6,7 +6,7 @@ import js.html.TouchEvent;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Controls {
 	public var x(default, null):Float = 0;

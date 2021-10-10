@@ -1,7 +1,7 @@
 package lcann.offline.device;
 
 /**
- * @author ekool
+ * @author Luke Cann
  */
 typedef Connection = {
 	var a:Device;

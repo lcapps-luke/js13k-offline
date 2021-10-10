@@ -2,7 +2,7 @@ package lcann.offline.grid;
 import lcann.offline.Entity;
 
 /**
- * @author ekool
+ * @author Luke Cann
  */
 typedef Cell = {
 	var x:Int;

@@ -7,7 +7,7 @@ import lcann.offline.resource.LvlDef;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class StageList extends Entity {
 	private var grid:Grid;

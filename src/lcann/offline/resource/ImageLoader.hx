@@ -5,7 +5,7 @@ import js.html.ImageElement;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class ImageLoader {
 	private var img:Map<String, ImageElement>;

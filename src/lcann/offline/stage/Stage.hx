@@ -13,7 +13,7 @@ import lcann.offline.grid.Grid;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Stage extends Entity {
 	private static inline var backRegion:Float = 240;

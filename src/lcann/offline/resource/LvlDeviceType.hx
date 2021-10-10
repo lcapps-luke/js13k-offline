@@ -1,7 +1,7 @@
 package lcann.offline.resource;
 
 /**
- * @author ekool
+ * @author Luke Cann
  */
 class LvlDeviceType {
 	public static inline var GATEWAY = "GW";

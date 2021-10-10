@@ -6,7 +6,7 @@ import lcann.offline.grid.Grid;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class HelpGuide extends Annotation {
 	private var grid:Grid;

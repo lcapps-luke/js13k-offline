@@ -12,7 +12,7 @@ import lcann.offline.resource.LvlDeviceType;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class StageBuilder {
 

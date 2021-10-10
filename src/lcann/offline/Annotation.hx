@@ -5,7 +5,7 @@ import js.html.ImageElement;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Annotation extends Entity {
 	private var image:ImageElement;

@@ -5,7 +5,7 @@ import lcann.offline.Entity;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Grid extends Entity {
 	public var hCell:Int;

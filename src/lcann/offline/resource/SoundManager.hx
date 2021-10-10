@@ -5,7 +5,7 @@ import js.html.AudioElement;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 @:initPackage
 class SoundManager {
@@ -32,7 +32,7 @@ class SoundManager {
 		s[n].play();
 	}
 
-	private static function __init__() : Void untyped {
+	private static function __init__() {
 		haxe.macro.Compiler.includeFile("res/jsfxr.js");
 	}
 }

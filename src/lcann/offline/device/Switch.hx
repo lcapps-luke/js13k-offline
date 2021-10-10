@@ -4,7 +4,7 @@ import lcann.offline.device.Device;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Switch extends Device {
 	private var effectiveSubnet:String;

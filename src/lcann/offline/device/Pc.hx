@@ -2,7 +2,7 @@ package lcann.offline.device;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Pc extends Device {
 

@@ -10,7 +10,7 @@ package lcann.offline.resource;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class ResBuilder {
 	private static inline var imagePath = "res/svg/";

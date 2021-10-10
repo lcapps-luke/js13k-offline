@@ -2,7 +2,7 @@ package lcann.offline.device;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Firewall extends Device {
 

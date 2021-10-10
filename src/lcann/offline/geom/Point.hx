@@ -2,7 +2,7 @@ package lcann.offline.geom;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Point {
 	public var x:Float;

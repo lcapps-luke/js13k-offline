@@ -5,7 +5,7 @@ import js.html.ImageElement;
 
 /**
  * ...
- * @author ekool
+ * @author Luke Cann
  */
 class Device extends Entity {
 	public var connectionLimit(default, null):Int;

@@ -1,7 +1,7 @@
 package lcann.offline.resource;
 
 /**
- * @author ekool
+ * @author Luke Cann
  */
 typedef LvlConnectionDef = {
 	var a:String;
